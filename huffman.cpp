@@ -1,8 +1,14 @@
 #include<iostream>
+#include"huffman.h"
 
 using namespace std;
 
-void test()
+
+character::character()
 {
-	cout << 666;
+
+}
+character::~character()
+{
+
 }
