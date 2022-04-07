@@ -1,7 +1,4 @@
 #include "character.h"
-#include<iostream>
-#include<fstream>
-#include<bitset>
 
 using namespace std;
 

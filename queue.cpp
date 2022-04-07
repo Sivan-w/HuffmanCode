@@ -1,5 +1,5 @@
 #include "queue.h"
-#include <iostream>
+
 
 using namespace std;
 
@@ -39,7 +39,7 @@ void queueRoot::printque()
 	point = this->first;
 	while (point)
 	{
-		cout << point->id << (char)point->id << " " << point->weight << endl;
+		cout << (char)point->id << " " << point->weight << endl;
 		point = point->next;
 	}
 	cout <<"over" << endl<<endl;

@@ -1,5 +1,5 @@
 #include "tree.h"
-#include <iostream>
+
 
 using namespace std;
 
@@ -20,13 +20,18 @@ void treeRoot::buildTree(queueRoot* que)
 	while (point->next->next != NULL)
 	{
 		characters* dad = new characters;
+
 		dad->left = point->next;
 		dad->right = point->next->next;
+
 		dad->left->parent = dad;
 		dad->right->parent = dad;
+
 		dad->left->bincode = 0;
 		dad->right->bincode = 1;
+
 		dad->weight = dad->left->weight + dad->right->weight;
+
 		point = point->next->next;
 		que->printque();
 	}
