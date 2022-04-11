@@ -126,13 +126,16 @@ void decode()
 
 	file.open("D:\\test.tiny", ios::in | ios::binary);
 	
+	//读取tiny文件
 	while (file.read((char*)&reader, sizeof(reader)))
 	{
 		tinyContent.push_back(reader);
 	}
+	file.close();
 	/*for (int i = 0; i < tinyContent.size(); i++)
 		cout << tinyContent[i] << " ";*/
 
+	//读取树信息、建树
 	for (unsigned int i = 1; i < 2*tinyContent[0].to_ulong() + 1; i+=2)
 	{
 		cells[tinyContent[i].to_ulong()].weight = tinyContent[i + 1].to_ulong();
@@ -141,42 +144,52 @@ void decode()
 	tree->buildTree(que);
 	que->printque();
 
+	//解码二进制
 	vector<char> txt;
 	string binString;
 	characters* point = tree->first;
-	binString = tinyContent[tinyContent.size() - 2].to_string();
-	char flag;
-	for (unsigned int i = 31; i >=32 - tinyContent[tinyContent.size() - 1].to_ulong(); i--)
-	{
-		if (flag = decodeFromTree(binString[i], point, tree))
-			txt.push_back(flag);
-	}
-	for(int i=)
-	//cout << endl << txt[0];
 
+	binString = tinyContent[tinyContent.size() - 2].to_string();
+	for (unsigned int i = 31; i >= 32 - tinyContent[tinyContent.size() - 1].to_ulong(); i--)
+		decodeFromTree(binString[i], &point, tree, txt);
+	for (int i = tinyContent.size() - 3; i >= 2 * tinyContent[0].to_ulong() + 1; i--)
+	{
+		binString = tinyContent[i].to_string();
+		for(int i=31;i>=0;i--)
+			decodeFromTree(binString[i], &point, tree, txt);
+	}
+	txt.push_back((char)point->id);
+
+	//写入.txt文件
+	cout << "请输入要保存的txt文件路径：\n（例如“D:\\test.txt”）\n>>>";
+	string txtPath = "D:\\test.txt";
+	file.open(txtPath,ios::out);
+	for (int i = 1; i < txt.size(); i++)      //从1开始，因为txt最后一位是乱码。
+		file.write(&txt[txt.size() - i], sizeof(txt[txt.size() - i]));
+	file.close();
+	cout << "解压成功！"<<endl<<endl;
 }
 
-char decodeFromTree(char k, characters* point,treeRoot* tree)
+void decodeFromTree(char k, characters** point, treeRoot* tree, std::vector<char> &txt)
 {
 	if (k == '0')
 	{
-		if (point->left == NULL)
+		if ((*point)->left == NULL)
 		{
-			k = (char)point->id;
-			point = tree->first;
+			//cout << (char)(*point)->id;
+			txt.push_back((char)(*point)->id);
+			(*point) = tree->first;
 		}
-		point = point->left;
+		(*point) = (*point)->left;
 	}
-	else if (k == '1')
+	if (k == '1')
 	{
-		if (point->right == NULL)
+		if ((*point)->right == NULL)
 		{
-			k = (char)point->id;
-			point = tree->first;
+			//cout << (char)(*point)->id;
+			txt.push_back((char)(*point)->id);
+			(*point) = tree->first;
 		}
-		point = point->right;
+		(*point) = (*point)->right;
 	}
-	else
-		k = 0;
-	return k;
 }

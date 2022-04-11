@@ -10,4 +10,5 @@
 
 void encode();
 void decode();
-char decodeFromTree(char k, characters* point, treeRoot* tree);
+//char decodeFromTree(char k, characters* point, treeRoot* tree);
+void decodeFromTree(char k, characters** point, treeRoot* tree, std::vector<char>& txt);
