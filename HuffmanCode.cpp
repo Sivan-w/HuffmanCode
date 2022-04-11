@@ -16,14 +16,14 @@ int main()
 		case 1:
 			encode();
 			break;
+		case 2:
+			decode();
+			break;
 		case 3:
 			return 0;
 		default:
-			break;
+			return 0;
 		}
 	} while (1);
-
-
-
 	return 0;
 }

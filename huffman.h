@@ -6,5 +6,8 @@
 #include"tree.h"
 #define CHARNUM 128
 
-void encode();
 
+
+void encode();
+void decode();
+char decodeFromTree(char k, characters* point, treeRoot* tree);

@@ -6,7 +6,7 @@ class characters
 public:
 	int id;
 	int weight;
-	int bincode;
+	char bincode;
 	characters* next;
 	characters* parent;
 	characters* left;

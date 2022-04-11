@@ -39,7 +39,7 @@ void queueRoot::printque()
 	point = this->first;
 	while (point)
 	{
-		cout << (char)point->id << " " << point->weight << endl;
+		cout  << (char)point->id << " "<<point->id<<" " << point->weight << endl;
 		point = point->next;
 	}
 	cout <<"over" << endl<<endl;
