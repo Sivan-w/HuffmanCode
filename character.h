@@ -14,8 +14,5 @@ public:
 
 	characters();
 	~characters();
-
-private:
-
 };
 

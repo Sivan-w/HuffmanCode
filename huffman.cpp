@@ -9,11 +9,11 @@ void encode()
 	//读取txt文件
 	string txt;
 	stringstream buffer;
-	string txtPath = "D:\\test.txt";
+	string txtPath;
 	string tinyPath;
 
 	cout << "请输入.txt文件路径：\n（例如：“D:\\test.txt”）\n>>>";
-	//cin >> txtPath;
+	cin >> txtPath;
 	fstream file;
 	file.open(txtPath, ios::in | ios::binary);
 	buffer << file.rdbuf();
@@ -27,8 +27,7 @@ void encode()
 	}
 
 	cout << "请指定.tiny文件存放路径：\n（例如：“D:\\test.tiny”）\n>>>";
-	tinyPath = "D:\\test.tiny";
-	//cin >> tinyPath;
+	cin >> tinyPath;
 
 	characters* cells = new characters[CHARNUM];
 	queueRoot* que = new queueRoot;
@@ -120,11 +119,13 @@ void decode()
 		cells[i].id = i;
 
 	cout << "请输入.tiny文件路径：\n（例如：“D:\\test.tiny”）\n>>>";
+	string tinyPath;
+	cin >> tinyPath;
 	vector<bitset<32>> tinyContent;
 	fstream file;
 	bitset<32> reader;
 
-	file.open("D:\\test.tiny", ios::in | ios::binary);
+	file.open(tinyPath, ios::in | ios::binary);
 	
 	//读取tiny文件
 	while (file.read((char*)&reader, sizeof(reader)))
@@ -162,10 +163,11 @@ void decode()
 
 	//写入.txt文件
 	cout << "请输入要保存的txt文件路径：\n（例如“D:\\test.txt”）\n>>>";
-	string txtPath = "D:\\test.txt";
+	string txtPath;
+	cin>>txtPath;
 	file.open(txtPath,ios::out);
-	for (int i = 1; i < txt.size(); i++)      //从1开始，因为txt最后一位是乱码。
-		file.write(&txt[txt.size() - i], sizeof(txt[txt.size() - i]));
+	for (int i = 0; i < txt.size(); i++)      //从1开始，因为txt最后一位是乱码。
+		file.write(&txt[txt.size() - i-1], sizeof(txt[txt.size() - i-1]));
 	file.close();
 	cout << "解压成功！"<<endl<<endl;
 }
